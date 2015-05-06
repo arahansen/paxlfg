@@ -1,4 +1,25 @@
 
 <h2>This is browse</h2>
-<button><a ui-sref="create">Create A Group</a></button>
-<button><a ui-sref="home">Home</a></button>
+
+<div ng-controller="BrowseController">
+	<table class="table table-bordered">
+		<tr>
+			<td>Game</td>
+			<td>Host</td>
+			<td>Contact Info</td>
+		</tr>
+		<tr ng-repeat="group in groups">
+			<td><a ui-sref="groupInfo({ groupId: group.id })">{{group.game.displayName}}</a></td>
+			<td>{{group.hostName}}</td>
+			<td>
+				Phone Number: <a href="callto:{{group.phoneNumber}}">{{group.phoneNumber}}</a>
+				<br>
+				Email: <a href="mailto:{{group.email}}">{{group.email}}</a>
+			</td>
+		</tr>
+		
+	</table>
+	
+</div>
+<button class="center-text"><a ui-sref="create">Create A Group</a></button>
+<button class="center-text"><a ui-sref="home">Home</a></button>

@@ -4,7 +4,8 @@
 <select ng-model="selectedGame" ng-disabled="enterCustomGame" ng-options="game.displayName for game in games | orderBy: 'displayName'">
 	
 </select>
-
+<h3>Your Name<span class="muted">(required)</span></h3>
+<input type="text" name="name" ng-model="hostName" placeholder="Enter your name...">
 <span>
 	<input type="checkbox" ng-model="enterCustomGame" ng-change="clearSelectedGame()">
 	Enter custom game
@@ -16,7 +17,7 @@
 </div>
 <br><br>
 <h3>How should players get a hold of you?</h3>
-<label name="phoneNumber">Phone Number (optional)</label>
+<label name="phoneNumber">Phone Number <span class="muted">(optional)</span></label>
 <br> 
 <input type="text" name="phoneNumber" ng-model="phoneNumber" placeholder="Enter your phone number...">
 <br><br>
