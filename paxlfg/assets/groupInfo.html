@@ -1,4 +1,7 @@
-<h2>This is Group Info</h2>
 
-<button><a ui-sref="create">Create A Group</a></button>
-<button><a ui-sref="browse">Browse Groups</a></button>
+<div class="container">
+	<h2>{{group.game.displayName}}</h2>
+	<h4>Hosted By: {{group.hostName}}</h4>
+	<a ui-sref="create" class="btn btn-default" role="button">Create A Group</a>
+	<a ui-sref="browse" class="btn btn-default" role="button">Browse Groups</a>
+</div>
