@@ -1,10 +1,13 @@
+var __dbUrl = 'http://localhost:1337';
+
+
 var app = angular.module("paxlfg", ['ui.router']);
 
 app.controller("HomeController", ["$scope", function($scope) {
 	
 }]);
 
-app.controller("CreateController", ["$scope", "groupFactory", "locationFactory", function($scope, groupFactory, locationFactory) {
+app.controller("CreateController", ["$scope", "groupFactory", "locationFactory", "addGroupFactory", function($scope, groupFactory, locationFactory, addGroupFactory) {
 	$scope.email = '';
 	$scope.phoneNumber = '';
 	$scope.additionalInfo = '';
@@ -27,10 +30,10 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 	$scope.startGroup = function() {
 
 		var groupId = groupFactory.generateId();
-		$scope.group = {
-			id: groupId,
+		group = {
+			//id: groupId,
 			hostName: $scope.hostName,
-			game: $scope.selectedGame,
+		//	game: $scope.selectedGame,
 			currentPlayers: $scope.currentPlayers,
 			playersNeeded: $scope.playersNeeded,
 			email: $scope.email,
@@ -39,14 +42,14 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 
 		}
 		if ( $scope.enterCustomGame) {
-			$scope.group.game = {
+			group.game = {
 				game: $scope.selectedGame.replace(" ", ""),
 				displayName: $scope.selectedGame
 				
 			}
 		}
 
-		groupFactory.addGroup($scope.group);
+		addGroupFactory.addGroup(group);
 		
 
 	}
@@ -92,18 +95,17 @@ app.factory('groupFactory', function() {
 	var currentGroup = '';
 	var id = 0;
 	var dummyData = [
-		{id:999, game: {game:"myGame",displayName:"My Game"}, email: "name@email.com", phoneNumber:"(123)456-7890", additionalInfo:"Come play with us!", hostName: "Smitty"},
-		{id:998, game: {game:"myOtherGame",displayName:"My Other Game"}, email: "name2@email.com", phoneNumber:"(425)456-7890", additionalInfo:"Play some gamezz!", hostName: "Smitty"}
+		{id:999, game: {game:"myGame",displayName:"My Game"}, email: "name@email.com", 
+		phoneNumber:"(123)456-7890", additionalInfo:"Come play with us!", hostName: "Dean W.", currentPlayers: 2, playersNeeded: 5},
+
+		{id:998, game: {game:"myOtherGame",displayName:"My Other Game"}, email: "name2@email.com", 
+		phoneNumber:"(425)456-7890", additionalInfo:"Play some gamezz!", hostName: "Sam W.", currentPlayers: 7, playersNeeded: 3}
 	]
 	var groups = [];
 	groups.push(dummyData[0]);
 	groups.push(dummyData[1]);
 
-	var addGroup = function(newGame) {
-		groups.push(newGame);
-		currentGroup = newGame;
-
-	}
+	
 
 	var getGroups = function() {
 		return groups;
@@ -118,12 +120,27 @@ app.factory('groupFactory', function() {
 	}
 
 	return {
-		addGroup: addGroup,
+		
 		getGroups: getGroups,
 		generateId: generateId,
 		getCurrentGroup: getCurrentGroup
 	}
 });
+
+app.factory("addGroupFactory", function($http) {
+	var addGroup = function(group) {
+		var groupJson = angular.toJson(group);
+		console.log(groupJson);
+		
+		$http.post(__dbUrl + '/groups', groupJson);	
+
+		
+	}
+
+	return {
+		addGroup: addGroup
+	}
+})
 
 app.factory("locationFactory", function() {
 	var dummyLocations = [
@@ -151,7 +168,9 @@ app.directive("primaryButtonType", function() {
 	}
 });
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
+	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
+
 	$urlRouterProvider.otherwise('/');
 
 	$stateProvider
