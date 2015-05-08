@@ -1,0 +1,33 @@
+<div>
+	<div class="col-md-offset-5 col-md-2">
+		<a ui-sref="create" class="btn btn-default btn-lg center-block" role="button">Create A Group</a>
+	</div>
+	<br><br><br><br>
+	<div class="row">
+		<div class="table-responsive col-md-offset-3 col-md-6">
+			<table class="table table-bordered">
+				<tr>
+					<td>Game</td>
+					<td>Host</td>
+					<td>Group Info</td>
+					<td>Start Time</td>
+					<td># of Players</td>
+				</tr>
+
+				<tr ng-repeat="group in groups">
+					<td><a ui-sref="groupInfo({ groupId: group._id })">{{group.game.displayName}}</a></td>
+					<td>{{group.hostName}}</td>
+					<td>
+						{{group.additionalInfo | limitTo: 100}}{{group.additionalInfo.length > 100 ? '...' : ''}}
+					</td>
+					<td>
+						{{group.startTime | date : 'h:mma'}}
+					</td>
+					<td> {{group.currentPlayers}} out of {{group.currentPlayers + group.playersNeeded | number}}
+				</tr>
+				
+			</table>
+		</div>
+	</div>
+	
+</div>
