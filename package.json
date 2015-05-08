@@ -1,0 +1,27 @@
+{
+  "name": "paxlfg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "mongojs": "^0.18.2",
+    "body-parser": "^1.12.3",
+    "express": "^4.12.3",
+    "mongo": "^0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arahansen/paxlfg"
+  },
+  "author": "Andrew Hansen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arahansen/paxlfg/issues"
+  },
+  "homepage": "https://github.com/arahansen/paxlfg"
+}
