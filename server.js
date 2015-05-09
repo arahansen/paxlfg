@@ -1,10 +1,20 @@
-var _mongoUri = "mongodb://heroku_app36691218:vgr3c2shp82fnm0sh898lvk0a@ds041831.mongolab.com:41831/heroku_app36691218";
+
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
+/*var mongo = require('mongodb');
+
+
+
+mongoDb.connect(mongoUri, function(err, db) {
+	db.collection('groupList', function(err, collection) {
+		collection
+	}
+})*/
 
 var express = require('express');
 var app = express();
 
 var mongojs = require('mongojs');
-var db = mongojs('_mongoUri', ['groupList']);
+var db = mongojs(mongoUri, ['groupList']);
 
 var bodyParser = require('body-parser');
 
