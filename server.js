@@ -8,6 +8,8 @@ var db = mongojs('_mongoUri', ['groupList']);
 
 var bodyParser = require('body-parser');
 
+var port = process.env.PORT || 3000;
+
 
 app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser.json());
@@ -40,4 +42,4 @@ app.post('/groupList', function(req, res) {
 
 });
 
-app.listen(3000);
+app.listen(port);
