@@ -195,7 +195,7 @@ app.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
 	$stateProvider
 		.state('create', {
 			url: '/create',
-			templateUrl: "create.html",
+			templateUrl: "../dist/create.html",
 			controller: "CreateController"
 		})
 		.state('browse', {
