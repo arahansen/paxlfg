@@ -25,7 +25,7 @@
 	<input type="number" ng-model="playersNeeded" ng-init=" playersNeeded = 1">	
 	<!-- Start Time -->
 	<h3>What time is your game starting?</h3>
-	<input type="time" ng-model="startTime" ng-init="startTime = {{'12:00AM' | date : 'HH:mma'}}'12:00AM'">
+	<input type="time" ng-model="startTime" ng-init="startTime = $filter('date')('1200AM', 'H:mma')">
 
 	<!-- Location -->
 	<h3>Select A Location</h3>
@@ -54,8 +54,8 @@
 
 	<!-- Additional Info -->
 	<h3>Additional Information</h3>
-	<textarea placeholder="Provide additional details about your game/group. Where are you playing? How long do you plan to play? How many players are you looking for?" ng-model="additionalInfo"></textarea>
-	<a ui-sref="groupCreated" id="startGroup" ng-click="startGroup()" class="btn btn-default" role="button">Start Group</a>
+	<textarea placeholder="Provide additional details about your game/group." ng-model="additionalInfo"></textarea>
+	<a id="startGroup" ng-click="startGroup()" ng-disabled="buttonDisabled" class="btn btn-default" role="button">Start Group</a>
 
 	<br><br><br>
 

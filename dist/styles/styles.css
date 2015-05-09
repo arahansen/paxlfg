@@ -1,0 +1,32 @@
+body {
+	background: url('../img/texturemate-videogame-brick04.png');
+	background-repeat: repeat;
+}
+
+* {
+	font-family: 'Press Start 2P';
+	font-size: 0.98em;
+}
+h1 {
+	font-family: 'Press Start 2P';
+	font-size: 28px;
+}
+
+.btn {
+	font-size: 14px;
+}
+
+h2 {
+	font-size: 24px;
+}
+h3 {
+	font-size: 18px;
+}
+
+input { 
+	font-size: 14px;
+}
+
+table {
+	background: #fff;
+}

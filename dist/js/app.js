@@ -13,6 +13,8 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 	$scope.additionalInfo = '';
 	$scope.enterCustomGame = false;
 	$scope.group = '';
+	$scope.buttonDisabled = false;
+
 	$scope.games = [
 		{id: 1, game: 'cardsAgainstHumanity', displayName: 'Cards Against Humanity'},
 		{id: 2, game: 'dungeonsAndDragons', displayName: 'Dungeons & Dragons'},
@@ -29,10 +31,10 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 
 
 	$scope.startGroup = function() {
-
-		var groupId = groupFactory.generateId();
+		// first, disable the Create Group Button so user can't duplicate submits
+		$scope.buttonDisabled = true;
+		// populate the group object with the info to be added
 		group = {
-			id: groupId,
 			hostName: $scope.hostName,
 			game: $scope.selectedGame,
 			currentPlayers: $scope.currentPlayers,
@@ -43,6 +45,7 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 			startTime: $scope.startTime
 
 		}
+		// group.game.selectedGame needs to be generated if user entered a custom game
 		if ( $scope.enterCustomGame) {
 			group.game = {
 				game: $scope.selectedGame.replace(" ", ""),
@@ -50,7 +53,7 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 				
 			}
 		}
-
+		// add the group to the database
 		groupFactory.addGroup(group);
 		
 
@@ -93,20 +96,17 @@ app.controller("GroupInfoController", ["$scope", "$stateParams", "groupFactory",
 		groups = d.data;
 		angular.forEach(groups, function(group, index) {
 	
-		if (group._id == $stateParams.groupId) {
-			$scope.group = group;
-			return;
-		}
-	});
-
-
+			if (group._id == $stateParams.groupId) {
+				$scope.group = group;
+				return;
+			}
+		});
 
 	});
-	
-	
+		
 }]);
 
-app.factory('groupFactory', function($http, $q) {
+app.factory('groupFactory', function($http, $q, $location) {
 	var currentGroup = '';
 	var id = 0;
 	var groups = [];
@@ -115,6 +115,9 @@ app.factory('groupFactory', function($http, $q) {
 	var addGroup = function(group) {
 		$http.post('/groupList', group).success(function(data) {
 			setCurrentGroup(data);	
+		})
+		.then(function() {
+			$location.path('/groupCreated');
 		});
 
 	}	

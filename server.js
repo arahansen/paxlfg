@@ -1,14 +1,19 @@
+var _mongoUri = "mongodb://heroku_app36691218:vgr3c2shp82fnm0sh898lvk0a@ds041831.mongolab.com:41831/heroku_app36691218";
+
 var express = require('express');
 var app = express();
 
 var mongojs = require('mongojs');
-var db = mongojs('groupList', ['groupList']);
+var db = mongojs('_mongoUri', ['groupList']);
 
 var bodyParser = require('body-parser');
 
 
 app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser.json());
+
+
+
 
 app.get('/groupList', function(req, res) {
 	console.log('Received GET request');
