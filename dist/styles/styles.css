@@ -1,6 +1,7 @@
 body {
 	background: url('../img/texturemate-videogame-brick04.png');
 	background-repeat: repeat;
+	background-attachment: fixed;
 }
 
 * {
@@ -29,4 +30,15 @@ input {
 
 table {
 	background: #fff;
+}
+
+h3 small, .small {
+	color: #BD0009;
+}
+
+.panel-section {
+	border-radius: 2px;
+	background-color: #fff;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
 }
