@@ -1,6 +1,3 @@
-var __dbUrl = 'http://localhost:1337';
-
-
 var app = angular.module("paxlfg", ['ui.router']);
 
 app.controller("HomeController", ["$scope", function($scope) {
@@ -80,6 +77,7 @@ app.controller("GroupCreatedController", ["$scope", "groupFactory", function($sc
 }]);
 
 app.controller("BrowseController", ["$scope", "groupFactory", function($scope, groupFactory) {
+	$scope.sortReverse = false;
 	// pulls current list of groups from db
 	groupFactory.async().then(function(d) {
 		$scope.groups = d.data;
