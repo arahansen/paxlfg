@@ -32,6 +32,7 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 		$scope.buttonDisabled = true;
 		// populate the group object with the info to be added
 		group = {
+			
 			hostName: $scope.hostName,
 			game: $scope.selectedGame,
 			currentPlayers: $scope.currentPlayers,
@@ -39,7 +40,8 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 			email: $scope.email,
 			phoneNumber: $scope.phoneNumber,
 			additionalInfo: $scope.additionalInfo,
-			startTime: $scope.startTime
+			startTime: $scope.startTime,
+			selectedLocation: $scope.selectedLocation
 
 		}
 		// group.game.selectedGame needs to be generated if user entered a custom game

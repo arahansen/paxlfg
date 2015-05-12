@@ -1,17 +1,17 @@
 <div class="col-md-offset-3 col-md-6 panel-section">
 	<h2> Create A Group </h2>
-	<form name="groupForm"
+	<form class="group-form" name="groupForm"
 		ng-submit="startGroup()">
 		<!-- Name -->
 		<h3>Your Name <small>(required)</small></h3>
 		<input type="text" name="name" placeholder="Enter your name..." required
 			ng-model-options="{ updateOn: 'blur' }"
 			ng-model="hostName"
-			ng-minlength="3"
+			ng-minlength="2"
 			ng-maxlength="20">
 		<p
 			ng-show="groupForm.name.$error.minlength">
-		You need to enter a longer name
+		!! You need to enter a longer name !!
 		</p>
 		<p
 			ng-show="groupForm.name.$error.maxlength">
@@ -19,16 +19,18 @@
 		</p>
 
 		<p
-			ng-show="groupForm.name.$invalid && groupForm.name.$touched">
+			ng-show="groupForm.name.$invalid && groupForm.name.$touched && !groupForm.name.$error.minlength && !groupForm.name.$error.maxlength">
 		A name is required
-
 		</p>
 
 		<!-- Game -->
 		<h3>What do you wanna play?</h3>
 
 		<select 
-			ng-model="selectedGame" ng-disabled="enterCustomGame" ng-options="game.displayName for game in games | orderBy: 'displayName'">
+			ng-model="selectedGame" 
+			ng-disabled="enterCustomGame" 
+			ng-options="game.displayName for game in games | orderBy: 'displayName'"
+			ng-class="{'disabled-input' : enterCustomGame}">
 		</select>
 
 		<span>
@@ -45,8 +47,11 @@
 			<p
 				ng-show="groupForm.customGame.$error.maxlength">
 				Game title needs to be shorter (30 characters max)
-
 			</p>	
+			<p 
+				ng-show="groupForm.customGame.$invalid && groupForm.customGame.$touched && !groupForm.customGame.$error.maxlength">
+				!! Enter a game... Or go back and select one from the dropdown !!
+			</p>
 
 		</div>
 
@@ -62,8 +67,8 @@
 			ng-init=" playersNeeded = 1">	
 
 		<!-- Start Time -->
-		<h3>What time is your game starting?</h3>
-		<input type="time" 
+		<h3>What time is your game starting? <small>(required)</small></h3>
+		<input type="time" required
 			ng-model="startTime" 
 			ng-init="startTime = $filter('date')('1200AM', 'H:mma')">
 
@@ -112,7 +117,7 @@
 			ng-model="additionalInfo">
 		</textarea>
 
-		<button id="startGroup" class="btn btn-default" role="button" type="submit"
+		<button id="start-group" class="btn btn-default" role="button" type="submit"
 			ng-disabled="buttonDisabled || groupForm.$invalid">
 		Start Group
 		</button>

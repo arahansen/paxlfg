@@ -1,3 +1,7 @@
+$warning-red: #BD0009;
+$gray: #DADADA;
+
+
 body {
 	background: url('../img/texturemate-videogame-brick04.png');
 	background-repeat: repeat;
@@ -33,9 +37,7 @@ table {
 	background: #fff;
 }
 
-h3 small, .small {
-	color: #BD0009;
-}
+
 
 .panel-section {
 	border-radius: 2px;
@@ -54,6 +56,8 @@ h3 small, .small {
 	border-radius: 4px;
 	box-shadow: 5px 5px 4px #3A3A3A;
 
+
+
 }
 
 .browse-section {
@@ -62,4 +66,29 @@ h3 small, .small {
 
 .game-link {
 	font-size: 24px;
+
+	@media (max-width: 500px) {
+		font-size: 18px;
+
+	}
+}
+
+.group-form {
+	.disabled-input {
+		background-color: $gray;
+	}
+	p {
+		padding-top: 15px;
+	}
+	p, h3 small {
+		color: $warning-red;
+	}
+	textarea {
+		width: 40%;
+		height: 10%;
+	}
+	#start-group {
+		position: relative;
+		bottom: 10px;
+	}
 }
