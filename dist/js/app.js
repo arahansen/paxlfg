@@ -1,17 +1,14 @@
-var app = angular.module("paxlfg", ['ui.router']);
+var app = angular.module("paxlfg", ['ui.router', 'ngCookies']);
 
-app.controller("HomeController", ["$scope", function($scope) {
-	
-}]);
-
-app.controller("CreateController", ["$scope", "groupFactory", "locationFactory", function($scope, groupFactory, locationFactory) {
+app.controller("CreateController", ["$scope", "$cookies", "groupFactory", "locationFactory", function($scope, $cookies, groupFactory, locationFactory) {
 	$scope.email = '';
 	$scope.phoneNumber = '';
 	$scope.additionalInfo = '';
 	$scope.enterCustomGame = false;
 	$scope.group = '';
 	$scope.buttonDisabled = false;
-
+	var favoriteCookie = $cookies.myFavorite;
+	$cookies.myFavorite = 'oatmeal';
 	$scope.games = [
 		{id: 1, game: 'cardsAgainstHumanity', displayName: 'Cards Against Humanity'},
 		{id: 2, game: 'dungeonsAndDragons', displayName: 'Dungeons & Dragons'},
@@ -32,7 +29,7 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 		$scope.buttonDisabled = true;
 		// populate the group object with the info to be added
 		group = {
-			
+
 			hostName: $scope.hostName,
 			game: $scope.selectedGame,
 			currentPlayers: $scope.currentPlayers,
@@ -52,6 +49,7 @@ app.controller("CreateController", ["$scope", "groupFactory", "locationFactory",
 				
 			}
 		}
+
 		// add the group to the database
 		groupFactory.addGroup(group);
 		
@@ -88,7 +86,8 @@ app.controller("BrowseController", ["$scope", "groupFactory", function($scope, g
 
 }]);
 
-app.controller("GroupInfoController", ["$scope", "$stateParams", "groupFactory", function($scope, $stateParams, groupFactory){
+app.controller("GroupInfoController", ["$scope", "$stateParams", "groupFactory", "userFactory", function($scope, $stateParams, groupFactory, userFactory){
+	var userCreated = false;
 	var groups = [];
 	$scope.group = '';
 
@@ -97,6 +96,16 @@ app.controller("GroupInfoController", ["$scope", "$stateParams", "groupFactory",
 		angular.forEach(groups, function(group, index) {
 	
 			if (group._id == $stateParams.groupId) {
+
+				userFactory.thisUserCreated(group._id).then(function(data) {
+					// determine whether or not the current user created the displayed group
+					userCreated = data;
+					// show tools for editing if this user created the group
+					$scope.allowEdit = userCreated ? "You created this group." : "";
+				});
+
+				
+
 				$scope.group = group;
 				return;
 			}
@@ -114,6 +123,7 @@ app.factory('groupFactory', function($http, $q, $location) {
 
 	var addGroup = function(group) {
 		$http.post('/groupList', group).success(function(data) {
+			// when we add a group, that group should be set to the current group
 			setCurrentGroup(data);	
 		})
 		.then(function() {
@@ -128,10 +138,6 @@ app.factory('groupFactory', function($http, $q, $location) {
 
 	var getGroups = function() {
 		return groups;
-	}
-
-	var generateId = function() {
-		return id++;
 	}
 
 	var getCurrentGroup = function() {
@@ -155,9 +161,7 @@ app.factory('groupFactory', function($http, $q, $location) {
 		async: async,
 		getGroups: getGroups,
 		getGroupById: getGroupById,
-		generateId: generateId,
-		getCurrentGroup: getCurrentGroup,
-		setCurrentGroup: setCurrentGroup
+		getCurrentGroup: getCurrentGroup
 	}
 });
 
@@ -177,6 +181,27 @@ app.factory("locationFactory", function() {
 		getLocations: getLocations
 	}
 });
+
+app.factory("cookieFactory", function($cookies) {
+	
+});
+
+app.factory("userFactory", function($http, $q) {
+	var deferred = $q.defer();
+	function thisUserCreated(id) {
+		$http.get('/userCreated/' + id).success(function(data) {
+			deferred.resolve(data);
+			// returns boolean indicating whether the current user has the proper cookie 
+			// saying this user created the given group
+			
+		});
+		return deferred.promise;
+	};
+
+	return {
+		thisUserCreated: thisUserCreated
+	}
+})
 
 app.directive("primaryButtonType", function() {
 	return {
