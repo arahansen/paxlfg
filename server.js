@@ -34,7 +34,7 @@ app.get('/groupList/:id', function(req, res) {
 });
 
 app.get('/userCreated/:id', function(req, res) {
-	console.log(req.cookies.userCreated);
+	
 	if (req.cookies.userCreated == req.params.id) {
 		res.send(true);
 	}
