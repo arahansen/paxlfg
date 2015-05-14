@@ -8,10 +8,10 @@
 
 	<br><br><br><br>
 	<div class="row">
-		<div class="col-md-offset-3 col-md-6 browse-section">
+		<div class="browse-section">
 			<div class="group-card"
 				ng-repeat="group in groups | orderBy : sortType : sortReverse | filter: searchTerm">
-				<a class="game-link" ui-sref="groupInfo({ groupId: group._id })">{{group.game.displayName}}</a>
+				<a class="game-link" ui-sref="groupInfo({ groupId: group._id })" class="card-title">{{group.game.displayName}}</a>
 				<h5>Start Time: {{group.startTime | date : 'h:mma'}}</h5>
 				<h5>Location: {{group.selectedLocation}}</h5>
 				<h5>More Info: </h5>
