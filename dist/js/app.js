@@ -8,7 +8,7 @@ app.controller("CreateController", ["$scope", "$cookies", "groupFactory", "locat
 	$scope.group = '';
 	$scope.buttonDisabled = false;
 	var favoriteCookie = $cookies.myFavorite;
-	$cookies.myFavorite = 'oatmeal';
+
 	$scope.games = [
 		{id: 1, game: 'cardsAgainstHumanity', displayName: 'Cards Against Humanity'},
 		{id: 2, game: 'dungeonsAndDragons', displayName: 'Dungeons & Dragons'},
@@ -73,7 +73,7 @@ app.controller("CreateController", ["$scope", "$cookies", "groupFactory", "locat
 app.controller("GroupCreatedController", ["$scope", "groupFactory", function($scope, groupFactory) {
 
 	$scope.thisGroup = groupFactory.getCurrentGroup();
-	console.log($scope.thisGroup);
+
 }]);
 
 app.controller("BrowseController", ["$scope", "groupFactory", function($scope, groupFactory) {

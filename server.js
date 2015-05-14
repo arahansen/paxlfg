@@ -22,16 +22,17 @@ app.use(bodyParser.json());
 app.get('/groupList', function(req, res) {
 	
 	db.groupList.find(function(err, docs) {
-		console.log(err);
+		if (err) {
+			console.log("Error: " + err);
+			return;	
+		}
+		
 		res.json(docs);
 	});
 	
 });
 
-app.get('/groupList/:id', function(req, res) {
-	console.log('GET ' + req.params.id);
 
-});
 
 app.get('/userCreated/:id', function(req, res) {
 	
@@ -49,14 +50,14 @@ app.post('/groupList', function(req, res) {
 	req.body._id = mongojs.ObjectId();
 	db.groupList.insert(req.body, function(err, doc) {
 		if (err) {
-			console.log(err);
+			console.log("Error: " + err);
 		}
 
 		try {
-			res.cookie('userCreated', doc._id);
+			res.cookie('userCreated', doc._id, {httpOnly: true});
 		}
 		catch (e) {
-			console.log(e);
+			console.log("Error: " + e);
 		}
 		res.json(doc);
 		
