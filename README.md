@@ -7,6 +7,7 @@ TODO:
 * Create .html template for update group
 
 * Write groupFactory.updateGroup(group)
+	- will need new server.js app.post(/updateGroup/:id) function
 
 * Add comment system
 	- possibly Facebook or Disqus
