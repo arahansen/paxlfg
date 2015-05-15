@@ -13,6 +13,7 @@ body {
 	font-family: 'Press Start 2P';
 	font-size: 0.98em;
 }
+
 h1 {
 	font-family: 'Press Start 2P';
 	font-size: 28px;
@@ -49,9 +50,12 @@ table {
 
 .group-card {
 	display: inline-block;
-	width: 40%;
-	padding: 1% 2%;
-	margin: 6% 5%;
+    padding: 1em;
+    margin: 0 0 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 	background-color: #eee;
 	border-radius: 4px;
 	box-shadow: 5px 5px 4px #3A3A3A;
@@ -110,7 +114,7 @@ table {
 
 	}
 
-	@media only screen and (min-width: 700px) {
+	@media only screen and (min-width: 785px) {
 
 	    -moz-column-count: 3;
 	    -webkit-column-count: 3;
@@ -126,16 +130,4 @@ table {
 	}
 
 
-}
-
-.group-card {
-    display: inline-block;
-    background: #fff;
-    padding: 1em;
-    margin: 0 0 1.5em;
-    width: 100%;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-shadow: 2px 2px 4px 0 #ccc;
 }

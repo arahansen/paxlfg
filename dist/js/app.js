@@ -24,9 +24,13 @@ app.controller("CreateController", ["$scope", "$cookies", "groupFactory", "locat
 
 
 
-	$scope.startGroup = function() {
+	$scope.submit = function(type) {
 		// first, disable the Create Group Button so user can't duplicate submits
 		$scope.buttonDisabled = true;
+
+		// group.game.selectedGame needs to be generated if user entered a custom game
+		
+
 		// populate the group object with the info to be added
 		group = {
 
@@ -41,7 +45,7 @@ app.controller("CreateController", ["$scope", "$cookies", "groupFactory", "locat
 			selectedLocation: $scope.selectedLocation
 
 		}
-		// group.game.selectedGame needs to be generated if user entered a custom game
+
 		if ( $scope.enterCustomGame) {
 			group.game = {
 				game: $scope.selectedGame.replace(" ", ""),
@@ -50,10 +54,14 @@ app.controller("CreateController", ["$scope", "$cookies", "groupFactory", "locat
 			}
 		}
 
-		// add the group to the database
-		groupFactory.addGroup(group);
-		
+		if (type === 'update') {
+			groupFactory.updateGroup();
 
+		} else {
+			groupFactory.addGroup(group);
+
+		}
+		
 	}
 
 	$scope.clearSelectedGame = function() {
@@ -131,6 +139,11 @@ app.factory('groupFactory', function($http, $q, $location) {
 		});
 
 	}	
+
+	function updateGroup(group) {
+		// TODO update existing db entry with updated group info
+		
+	}
 
 	var async = function() {
 		return $http.get('/groupList');
