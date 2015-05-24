@@ -86,13 +86,15 @@ input {
   box-shadow: 5px 5px 4px #3A3A3A;
   width: 100%; }
   .group-form input {
-    font-size: 10px;
+    font-size: 12px;
     height: 7%; }
   .group-form select {
-    font-size: 10px;
+    font-size: 12px;
     overflow: hidden;
     height: 7%;
     max-width: 100%; }
+  .group-form option {
+    font-size: 20px; }
   .group-form .disabled-input {
     background-color: #DADADA; }
   .group-form p {

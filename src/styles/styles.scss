@@ -101,15 +101,20 @@ input {
 	@include card();
 	width: 100%;
 	input {
-		font-size: 10px;
+		font-size: 12px;
 		height: 7%;
 	}
 	
 	select {
-		font-size: 10px;
+		font-size: 12px;
 		overflow: hidden;
 		height: 7%;
 		max-width: 100%;
+	}
+
+	option {
+		font-size: 20px;
+	
 	}
 
 	.disabled-input {

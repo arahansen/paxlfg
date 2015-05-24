@@ -3,8 +3,8 @@
 	
 	<div ng-show="allowEdit">
 		<p class="user-created">You created this group.</p>
-		<button ui-sref="editGroup({ groupId: group._id })">Edit Group</button>
-		<button ng-click="deleteGroup()">Delete Group</button>
+		<button class="btn btn-default" ui-sref="editGroup({ groupId: group._id })">Edit Group</button>
+		<button class="btn btn-default" ng-click="deleteGroup()">Delete Group</button>
 	</div>
 	<div class="player-info">
 		<h2>{{group.game.displayName}}</h2>

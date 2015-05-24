@@ -80,7 +80,7 @@
 		<select 
 			ng-model="selectedLocation" 
 			ng-disabled="enterCustomLocation"
-			ng-class="{'disabled-input' : enterCustomLoction}" 
+			ng-class="{'disabled-input' : enterCustomLocation}" 
 			ng-options="location.name for location in locations | orderBy: 'displayName'">
 		</select>
 
@@ -96,8 +96,7 @@
 				<h3>Have a different place in mind?</h3>
 				<input placeholder="Enter custom location..." 
 					ng-model="selectedLocation" 
-					ng-required="enterCustomLocation"
-					>	
+					ng-required="enterCustomLocation">	
 
 		</div>
 		<br><br>
@@ -117,13 +116,21 @@
 
 		<!-- Additional Info -->
 		<h3>Additional Information <small>(required)</small></h3>
-		<textarea placeholder="Tell everyone more about your group!" required
+		<textarea name="groupInfo" placeholder="Tell everyone more about your group!" required
 			ng-model="additionalInfo"
-			>
+			ng-minlength="20"
+			ng-model-options="{ updateOn: groupForm.groupInfo.$touched }">
+
 		</textarea>
+		
+		<p
+			ng-show="groupForm.groupInfo.$viewValue.length < 20 && groupForm.groupInfo.$touched">
+			!! Give us a bit more info !! (20 character minimum) <br>
+			Currently: {{groupForm.groupInfo.$viewValue.length}} characters
+		</p>
 
 		<button id="start-group" class="btn btn-default" role="button" type="submit"
-			ng-disabled="buttonDisabled || groupForm.$invalid">
+			ng-disabled="buttonDisabled || groupForm.$invalid || groupForm.$submitted">
 		{{buttonText}}
 		</button>
 
