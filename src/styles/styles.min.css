@@ -1,0 +1,126 @@
+body {
+  background: url("../img/texturemate-videogame-brick04.png");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+* {
+  font-family: 'Press Start 2P';
+  font-size: 0.98em;
+}
+
+h1 {
+  font-family: 'Press Start 2P';
+  font-size: 28px;
+}
+
+.btn {
+  font-size: 14px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+input {
+  font-size: 14px;
+}
+
+table {
+  background: #fff;
+}
+
+.panel-section {
+  border-radius: 2px;
+  background-color: #fff;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.group-card {
+  display: inline-block;
+  padding: 1em;
+  margin: 0 0 1.5em;
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background-color: #eee;
+  border-radius: 4px;
+  box-shadow: 5px 5px 4px #3A3A3A;
+}
+
+.browse-section {
+  padding: 0;
+}
+
+.game-link {
+  font-size: 24px;
+}
+
+@media (max-width: 500px) {
+  .game-link {
+    font-size: 18px;
+  }
+}
+
+.group-form .disabled-input {
+  background-color: #DADADA;
+}
+
+.group-form p {
+  padding-top: 15px;
+}
+
+.group-form p, .group-form h3 small {
+  color: #BD0009;
+}
+
+.group-form textarea {
+  width: 40%;
+  height: 10%;
+}
+
+.group-form #start-group {
+  position: relative;
+  bottom: 10px;
+}
+
+.browse-section {
+  margin: 1.5em 0;
+  padding: 0 5%;
+  -moz-column-gap: 1.5em;
+  -webkit-column-gap: 1.5em;
+  column-gap: 1.5em;
+  font-size: .85em;
+}
+
+@media only screen and (min-width: 415px) {
+  .browse-section {
+    padding: 0 10%;
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+  }
+}
+
+@media only screen and (min-width: 785px) {
+  .browse-section {
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+    column-count: 3;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .browse-section .browse-section .group-card .card-title {
+    font-size: 2px;
+    display: none;
+  }
+}

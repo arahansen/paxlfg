@@ -13,7 +13,7 @@ var bodyParser = require('body-parser');
 var port = process.env.PORT || 3000;
 
 app.use(cookieParser());
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/dest'));
 app.use(bodyParser.json());
 
 
@@ -37,6 +37,7 @@ app.get('/groupList', function(req, res) {
 app.get('/userCreated/:id', function(req, res) {
 	
 	if (req.cookies.userCreated == req.params.id) {
+		
 		res.send(true);
 	}
 	else {
@@ -54,7 +55,7 @@ app.post('/groupList', function(req, res) {
 		}
 
 		try {
-			res.cookie('userCreated', doc._id, {httpOnly: true});
+			res.cookie('userCreated', doc._id, {maxAge: 999999, httpOnly: true});
 		}
 		catch (e) {
 			console.log("Error: " + e);
@@ -65,4 +66,37 @@ app.post('/groupList', function(req, res) {
 
 });
 
+app.post('/updateGroup/:id', function(req, res) {
+	var id = {};
+	var vals = {};
+	console.log(req.body);
+	vals['hostName'] = req.body.hostName;
+	id['_id'] = mongojs.ObjectId(req.params.id);
+
+	db.groupList.update(
+		id,
+		{$set : req.body},
+		function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+			else {
+				res.send(result);
+				
+			}
+		}
+	);
+});
+
+app.post('/deleteGroup/:id', function(req, res) {
+	var id = {};
+	id['_id'] = mongojs.ObjectId(req.params.id);
+
+	db.groupList.remove(id, function(err, result) {
+		res.send(result);
+
+	});
+	
+});
+  
 app.listen(port);

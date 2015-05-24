@@ -4,7 +4,11 @@ TODO:
 	ie, add dynamic elements to submit button and title
 	autopopulate fields with existing group info
 
-* Create .html template for update group
+* Add "Delete Group" functionality
+
+* Add group expiration time (10 min after group starts, delete group post)
+
+* Dynamically set location if using preset location
 
 * Write groupFactory.updateGroup(group)
 	- will need new server.js app.post(/updateGroup/:id) function
