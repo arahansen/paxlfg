@@ -31062,13 +31062,55 @@ app.config(["$stateProvider", "$urlRouterProvider", "$compileProvider", function
 		});
 
 }]);
-app.controller("CreateController", ["$scope", "$cookies", "$filter", "groupFactory", "locationFactory", function($scope, $cookies, $filter, groupFactory, locationFactory) {
+app.controller("CreateController", ["$scope", "$cookies", "$filter", "$interval", "groupFactory", "locationFactory", function($scope, $cookies, $filter, $interval, groupFactory, locationFactory) {
 	$scope.email = '';
 	$scope.phoneNumber = '';
 	$scope.additionalInfo = '';
 	$scope.enterCustomGame = false;
 	$scope.group = '';
 	$scope.buttonDisabled = false;
+	var d;
+	d = new Date();
+
+	$scope.startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), 0);
+
+	$scope.days = [
+		{
+			dateString : "Friday, 8/28",
+			date : {
+				month : d.getMonth(),
+				day : d.getDate()
+			}
+
+		},
+		{
+			dateString : "Saturday, 8/29",
+			date : {
+				month : d.getMonth(),
+				day : d.getDate() + 1
+			}
+
+		},
+		{
+			dateString : "Sunday, 8/30",
+			date : {
+				month : d.getMonth(),
+				day : d.getDate() + 2
+			}
+
+		},
+		{
+			dateString : "Monday, 8/31",
+			date : {
+				month : d.getMonth(),
+				day : d.getDate() + 3
+			}
+
+		}
+	];
+	
+	$scope.selectedDay = $scope.days[0].date;
+
 
 	$scope.games = [
 		{game: 'cardsAgainstHumanity', displayName: 'Cards Against Humanity'},
@@ -31273,7 +31315,41 @@ app.directive('groupForm', function() {
 		name: "controllerName",
 		scope: {
 			buttonText: '=',
-			//submit: '&'
+
 		}
+	};
+});
+
+app.directive('validateTime', function($interval) {
+	return {
+		restrict: 'AE',
+		require: 'ngModel',
+
+		link: function(scope, elem, attr, ctrl) {
+			var startTime;
+			var d = new Date();
+			var minStartTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), 0);
+
+			scope.$watch('selectedDay', function() {
+				// update the start time with the selected day
+				scope.startTime.setDate(scope.selectedDay.day);
+				scope.startTime.setMonth(scope.selectedDay.month);
+				
+			});
+			// update minimum time every 10 ms
+			$interval(function() {
+				d = new Date();
+				// set the new allowable minimum time
+				minStartTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), 0);
+				
+				if (scope.startTime <= minStartTime) {
+					// reset the View
+					scope.startTime = minStartTime;
+				}
+				
+				
+			}, 10);
+		}
+
 	};
 });

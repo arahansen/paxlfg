@@ -67,12 +67,34 @@
 		<h3>How many more players do you need?</h3>
 		<input type="number" min="1"
 			ng-model="playersNeeded" 
-			ng-init=" playersNeeded = 1">	
+			ng-init=" playersNeeded = 1">
+		<br><br>
+
 
 		<!-- Start Time -->
-		<h3>What time is your game starting? <small>(required)</small></h3>
-		<input type="time" placeholder="HH:mm:ss" required
-			ng-model="startTime">
+		<label>What time is your game starting? <small>(required)</small></label>
+		
+		<br>
+		
+		<input type="time"  required
+			
+			ng-model="startTime"
+			validate-time
+		>
+		<select
+			ng-model="selectedDay" 
+			ng-options="day.date as day.dateString for day in days"
+			>
+		</select>
+		<br>
+		<label>What time is your game ending? <small>(optional)</small></label>
+		<br>
+		<input type="time" 
+			ng-model="endTime">
+		<select
+			ng-model="selectedEndDay" 
+			ng-options="day.date as day.dateString for day in days"
+			>
 
 
 		<!-- Location -->

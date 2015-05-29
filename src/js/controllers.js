@@ -1,10 +1,52 @@
-app.controller("CreateController", ["$scope", "$cookies", "$filter", "groupFactory", "locationFactory", function($scope, $cookies, $filter, groupFactory, locationFactory) {
+app.controller("CreateController", ["$scope", "$cookies", "$filter", "$interval", "groupFactory", "locationFactory", function($scope, $cookies, $filter, $interval, groupFactory, locationFactory) {
 	$scope.email = '';
 	$scope.phoneNumber = '';
 	$scope.additionalInfo = '';
 	$scope.enterCustomGame = false;
 	$scope.group = '';
 	$scope.buttonDisabled = false;
+	var d;
+	d = new Date();
+
+	$scope.startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), 0);
+
+	$scope.days = [
+		{
+			dateString : "Friday, 8/28",
+			date : {
+				month : d.getMonth(),
+				day : d.getDate()
+			}
+
+		},
+		{
+			dateString : "Saturday, 8/29",
+			date : {
+				month : d.getMonth(),
+				day : d.getDate() + 1
+			}
+
+		},
+		{
+			dateString : "Sunday, 8/30",
+			date : {
+				month : d.getMonth(),
+				day : d.getDate() + 2
+			}
+
+		},
+		{
+			dateString : "Monday, 8/31",
+			date : {
+				month : d.getMonth(),
+				day : d.getDate() + 3
+			}
+
+		}
+	];
+	
+	$scope.selectedDay = $scope.days[0].date;
+
 
 	$scope.games = [
 		{game: 'cardsAgainstHumanity', displayName: 'Cards Against Humanity'},
