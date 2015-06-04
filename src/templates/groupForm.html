@@ -79,20 +79,26 @@
 		<input type="time"  required
 			
 			ng-model="startTime"
+			this-time="startTime"
+			min-time='minStartTime'
+			day='startDay'
 			validate-time
 		>
-		<select
-			ng-model="selectedDay" 
+		
+		<select 
+			ng-model="startDay" 
 			ng-options="day.date as day.dateString for day in days"
 			>
 		</select>
 		<br>
 		<label>What time is your game ending? <small>(optional)</small></label>
 		<br>
-		<input type="time" 
-			ng-model="endTime">
+		<input type="time"
+			ng-model="endTime"
+			day='enterCustomGame'
+			>
 		<select
-			ng-model="selectedEndDay" 
+			ng-model="endDay" 
 			ng-options="day.date as day.dateString for day in days"
 			>
 

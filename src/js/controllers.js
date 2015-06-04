@@ -5,10 +5,14 @@ app.controller("CreateController", ["$scope", "$cookies", "$filter", "$interval"
 	$scope.enterCustomGame = false;
 	$scope.group = '';
 	$scope.buttonDisabled = false;
-	var d;
-	d = new Date();
 
+	var d = new Date();
+	
 	$scope.startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), 0);
+	console.log($scope.startTime);
+
+	$scope.minStartTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), 0);
+	
 
 	$scope.days = [
 		{
@@ -45,7 +49,7 @@ app.controller("CreateController", ["$scope", "$cookies", "$filter", "$interval"
 		}
 	];
 	
-	$scope.selectedDay = $scope.days[0].date;
+	$scope.startDay = $scope.days[0].date;
 
 
 	$scope.games = [
